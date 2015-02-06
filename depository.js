@@ -8,16 +8,18 @@
          */
 
         // Declarations
-        var elem, spec, func, util, queue, uploading, internalId;
+        var elem, spec, func, publ, util, queue, uploads, uploading, internalId;
 
         // Initializations
-        elem = {};              // elements object
-        spec = {};              // settings object (exposed to allow setting via dot-notation)
-        func = {};              // plugin functions
-        util = {};              // utility functions
-        queue = [];             // file queue
-        uploading = false;      // uploading flag
-        internalId = 0;         // file identifier
+        elem = {};                  // elements object
+        spec = {};                  // settings object (exposed to allow setting via dot-notation)
+        func = {};                  // plugin functions
+        publ = {};                  // exposed public functions
+        util = {};                  // utility functions
+        queue = [];                 // file queue
+        uploads = [];               // active uploads
+        uploading = false;          // uploading flag
+        internalId = 0;             // file identifier
 
         // Intitialize default settings (these are all overidable through data attributes, the setup object, and dot-notation)
         spec.url = document.URL;
@@ -295,7 +297,12 @@
                 func.next();
             }, false);
 
+            xhr.addEventListener('loadend', function () {
+                uploads.splice(xhr, 1);
+            }, false);
+
             // start upload
+            uploads.push(xhr);
             xhr.open(spec.method, spec.url);
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             if (spec.dataType === 'JSON') {
@@ -313,6 +320,139 @@
             }
 
             func.uploadAFile();
+        };
+
+        // Abort all active uploads
+        func.abort = function () {
+            queue = [];
+            uploads.forEach(function (val) {
+                val.abort();
+                uploads.splice(val, 1);
+            });
+        };
+
+
+        /**
+         * public functions
+         */
+
+        // Exposed functions
+        publ.addToQueue = func.addToQueue;
+        publ.abort = func.abort;
+
+        // Setters
+        publ.url = function (url) {
+            if (typeof url === 'string') {
+                spec.url = url;
+            }
+        };
+
+        publ.method = function (method) {
+            if (typeof method === 'string') {
+                spec.method = method;
+            }
+        };
+
+        publ.fieldName = function (fieldName) {
+            if (typeof fieldName === 'string') {
+                publ.fieldName = fieldName;
+            }
+        };
+
+        publ.multi = function (multi) {
+            if (typeof multi === 'boolean' || typeof multi === 'number') {
+                spec.multi = multi;
+            }
+        };
+
+        publ.accept = function (accept) {
+            if (typeof accept === 'object' && accept.length !== undefined) {
+                spec.accept = accept;
+            }
+        };
+
+        publ.dataType = function (dataType) {
+            if (typeof dataType === 'string') {
+                spec.dataType = dataType;
+            }
+        };
+
+        publ.csrfParam = function (csrfParam) {
+            if (typeof csrfParam === 'string') {
+                spec.csrfParam = csrfParam;
+            }
+        };
+
+        publ.csrfToken = function (csrfToken) {
+            if (typeof csrfToken === 'string') {
+                spec.csrfToken = csrfToken;
+            }
+        };
+
+        publ.onBodyEnter = function (onBodyEnter) {
+            if (typeof onBodyEnter === 'function') {
+                spec.onBodyEnter = onBodyEnter;
+            }
+        };
+
+        publ.onBodyLeave = function (onBodyLeave) {
+            if (typeof onBodyLeave === 'function') {
+                spec.onBodyLeave = onBodyLeave;
+            }
+        };
+
+        publ.onEnter = function (onEnter) {
+            if (typeof onEnter === 'function') {
+                spec.onEnter = onEnter;
+            }
+        };
+
+        publ.onLeave = function (onLeave) {
+            if (typeof onLeave === 'function') {
+                spec.onLeave = onLeave;
+            }
+        };
+
+        publ.onStart = function (onStart) {
+            if (typeof onStart === 'function') {
+                spec.onStart = onStart;
+            }
+        };
+
+        publ.onEnqueue = function (onEnqueue) {
+            if (typeof onEnqueue === 'function') {
+                spec.onEnqueue = onEnqueue;
+            }
+        };
+
+        publ.onProgress = function (onProgress) {
+            if (typeof onProgress === 'function') {
+                spec.onProgress = onProgress;
+            }
+        };
+
+        publ.onSuccess = function (onSuccess) {
+            if (typeof onSuccess === 'function') {
+                spec.onSuccess = onSuccess;
+            }
+        };
+
+        publ.onAbort = function (onAbort) {
+            if (typeof onAbort === 'function') {
+                spec.onAbort = onAbort;
+            }
+        };
+
+        publ.onError = function (onError) {
+            if (typeof onError === 'function') {
+                spec.onError = onError;
+            }
+        };
+
+        publ.afterUpload = function (afterUpload) {
+            if (typeof afterUpload === 'function') {
+                spec.afterUpload = afterUpload;
+            }
         };
 
 
@@ -347,6 +487,6 @@
 
         func.init(element, options);
 
-        return spec;
+        return publ;
     };
 }());
