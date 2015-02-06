@@ -55,9 +55,9 @@ uploader.onLeave = function () {
 Triggers each time a file is queued
 ##### onStart(*queue*) 
 Triggers when the uploading process starts (after queing of dropped files)
-##### onProgress(*event*, *file*)
+##### onProgress(*xhrEvent*, *file*)
 Triggers when a progress event is emitted from the XHR event
-##### onAbort(*event*, *file*)
+##### onAbort(*xhrEvent*, *file*)
 Triggers if a file's XHR event is aborted by the user
 ##### onSuccess(*response*, *httpReponseCode*, *file*)
 Triggers on each file's successful upload (4xx response code)
