@@ -20,12 +20,12 @@ var uploader = dndUpload($('#dropzone'), {
 
 #### Dot-notation
 ``` javascript
-uploader.onEnter = function () {
+uploader.onEnter(function () {
   /* Do something when you enter the element */
-};
-uploader.onLeave = function () {
+});
+uploader.onLeave(function () {
   /* Do something when you leave the element; also occurs on drop */
-};
+});
 ```
 
 #### Using HTML attributes (html/erb)
