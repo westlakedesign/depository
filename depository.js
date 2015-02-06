@@ -8,7 +8,7 @@
          */
 
         // Declarations
-        var elem, spec, func, util, queue, uploading;
+        var elem, spec, func, util, queue, uploading, internalId;
 
         // Initializations
         elem = {};              // elements object
@@ -17,6 +17,7 @@
         util = {};              // utility functions
         queue = [];             // file queue
         uploading = false;      // uploading flag
+        internalId = 0;         // file identifier
 
         // Intitialize default settings (these are all overidable through data attributes, the setup object, and dot-notation)
         spec.url = document.URL;
@@ -36,6 +37,7 @@
         spec.onEnter = function () { return undefined; };
         spec.onLeave = function () { return undefined; };
         spec.onStart = function () { return undefined; };
+        spec.onEnqueue = function () { return undefined; };
         spec.onProgress = function () { return undefined; };
         spec.onSuccess = function () { return undefined; };
         spec.onAbort = function () { return undefined; };
@@ -63,6 +65,13 @@
 
             elem.body = document.getElementsByTagName('body')[0];
             elem.dropzone = func.processElement(element);
+
+            // Stop if element is undefined
+            if (elem.dropzone === undefined) {
+                console.log(element);
+                console.warn('invalid element passed to depository');
+                return;
+            }
 
             dataOpts = func.getDataOptions(elem.dropzone);
 
@@ -211,6 +220,9 @@
                 return;
             }
 
+            internalId += 1;
+            file.id = internalId;
+            spec.onEnqueue(file);
             queue.push(file);
         };
 
@@ -221,7 +233,7 @@
             }
 
             uploading = true;
-            spec.onStart();
+            spec.onStart(queue);
             func.uploadAFile();
         };
 
@@ -243,8 +255,8 @@
             xhr = new XMLHttpRequest();
 
             // Add all the XHR listeners
-            xhr.upload.addEventListener('progress', spec.onProgress, false);
-            xhr.addEventListener('abort', spec.onAbort, false);
+            xhr.upload.addEventListener('progress', function (e) { spec.onProgress(e, file); }, false);
+            xhr.addEventListener('abort', function (e) { spec.onAbort(e, file); }, false);
             xhr.addEventListener('error', function () {
                 var res;
 
@@ -258,7 +270,7 @@
                     }
                 }
 
-                spec.onError(res, 0);
+                spec.onError(res, 0, file);
             });
             xhr.addEventListener('load', function () {
                 var res, code;
@@ -275,9 +287,9 @@
                 }
 
                 if (/2\d{2}/.test(code.toString())) {
-                    spec.onSuccess(res, code);
+                    spec.onSuccess(res, code, file);
                 } else {
-                    spec.onError(res, code);
+                    spec.onError(res, code, file);
                 }
 
                 func.next();
