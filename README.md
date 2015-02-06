@@ -51,17 +51,25 @@ uploader.onLeave = function () {
 * **onLeave** - Triggers when you drag away from the dropzone element, also triggers on drop
 
 #### Uploader Event Functions
-##### onEnqueue(*file*)
-Triggers each time a file is queued
-##### onStart(*queue*) 
-Triggers when the uploading process starts (after queing of dropped files)
-##### onProgress(*xhrEvent*, *file*)
-Triggers when a progress event is emitted from the XHR event
-##### onAbort(*xhrEvent*, *file*)
-Triggers if a file's XHR event is aborted by the user
-##### onSuccess(*response*, *httpReponseCode*, *file*)
-Triggers on each file's successful upload (4xx response code)
-##### onError(*response*, *httpReponseCode*, *file*)
-Triggers if upload fails to start or if upload receives a failing response code (non 4xx)
-##### afterUpload()
-Triggers after entire queue has been processed
+<dl>
+  <dt>onEnqueue( <i>file</i> )</dt>
+  <dd>Triggers each time a file is queued</dd>
+  
+  <dt>onStart( <i>queue</i> )</dt>
+  <dd>Triggers when the uploading process starts (after queing of dropped files)</dd>
+
+  <dt>onProgress( <i>xhrEvent</i>, <i>file</i> )</dt>
+  <dd>Triggers when a progress event is emitted from the XHR event</dd>
+
+  <dt>onAbort( <i>xhrEvent</i>, <i>file</i> )</dt>
+  <dd>Triggers if a file's XHR event is aborted by the user</dd>
+
+  <dt>onSuccess( <i>response</i>, <i>httpReponseCode</i>, <i>file</i> )</dt>
+  <dd>Triggers on each file's successful upload (4xx response code)</dd>
+
+  <dt>onError( <i>response</i>, <i>httpReponseCode</i>, <i>file</i> )</dt>
+  <dd>Triggers if upload fails to start or if upload receives a failing response code (non 4xx)</dd>
+
+  <dt>afterUpload()</dt>
+  <dd>Triggers after entire queue has been processed</dd>
+</dl>
