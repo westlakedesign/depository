@@ -334,118 +334,156 @@
         publ.abort = func.abort;
 
         // Setters
-        publ.url = function (url) {
+        publ.setUrl = function (url) {
             if (typeof url === 'string') {
                 spec.url = url;
             }
+
+            return publ;
         };
 
-        publ.method = function (method) {
+        publ.setMethod = function (method) {
             if (typeof method === 'string') {
                 spec.method = method;
             }
+
+            return publ;
         };
 
-        publ.fieldName = function (fieldName) {
+        publ.setFieldName = function (fieldName) {
             if (typeof fieldName === 'string') {
-                publ.fieldName = fieldName;
+                spec.fieldName = fieldName;
             }
+
+            return publ;
         };
 
-        publ.multi = function (multi) {
+        publ.setMulti = function (multi) {
             if (typeof multi === 'boolean' || typeof multi === 'number') {
                 spec.multi = multi;
             }
+
+            return publ;
         };
 
-        publ.accept = function (accept) {
+        publ.setAccept = function (accept) {
             if (typeof accept === 'object' && accept.length !== undefined) {
                 spec.accept = accept;
             }
+
+            return publ;
         };
 
-        publ.dataType = function (dataType) {
+        publ.setDataType = function (dataType) {
             if (typeof dataType === 'string') {
                 spec.dataType = dataType;
             }
+
+            return publ;
         };
 
-        publ.csrfParam = function (csrfParam) {
+        publ.setCsrfParam = function (csrfParam) {
             if (typeof csrfParam === 'string') {
                 spec.csrfParam = csrfParam;
             }
+
+            return publ;
         };
 
-        publ.csrfToken = function (csrfToken) {
+        publ.setCsrfToken = function (csrfToken) {
             if (typeof csrfToken === 'string') {
                 spec.csrfToken = csrfToken;
             }
+
+            return publ;
         };
 
         publ.onBodyEnter = function (onBodyEnter) {
             if (typeof onBodyEnter === 'function') {
                 spec.onBodyEnter = onBodyEnter;
             }
+
+            return publ;
         };
 
         publ.onBodyLeave = function (onBodyLeave) {
             if (typeof onBodyLeave === 'function') {
                 spec.onBodyLeave = onBodyLeave;
             }
+
+            return publ;
         };
 
         publ.onEnter = function (onEnter) {
             if (typeof onEnter === 'function') {
                 spec.onEnter = onEnter;
             }
+
+            return publ;
         };
 
         publ.onLeave = function (onLeave) {
             if (typeof onLeave === 'function') {
                 spec.onLeave = onLeave;
             }
+
+            return publ;
         };
 
         publ.onStart = function (onStart) {
             if (typeof onStart === 'function') {
                 spec.onStart = onStart;
             }
+
+            return publ;
         };
 
         publ.onEnqueue = function (onEnqueue) {
             if (typeof onEnqueue === 'function') {
                 spec.onEnqueue = onEnqueue;
             }
+
+            return publ;
         };
 
         publ.onProgress = function (onProgress) {
             if (typeof onProgress === 'function') {
                 spec.onProgress = onProgress;
             }
+
+            return publ;
         };
 
         publ.onSuccess = function (onSuccess) {
             if (typeof onSuccess === 'function') {
                 spec.onSuccess = onSuccess;
             }
+
+            return publ;
         };
 
         publ.onAbort = function (onAbort) {
             if (typeof onAbort === 'function') {
                 spec.onAbort = onAbort;
             }
+
+            return publ;
         };
 
         publ.onError = function (onError) {
             if (typeof onError === 'function') {
                 spec.onError = onError;
             }
+
+            return publ;
         };
 
         publ.afterUpload = function (afterUpload) {
             if (typeof afterUpload === 'function') {
                 spec.afterUpload = afterUpload;
             }
+
+            return publ;
         };
 
 
