@@ -6,6 +6,7 @@ Depository can be used three different ways which can be mixed and matched
 #### Settings object in constructor
 ``` javascript
 var uploader = dndUpload($('#dropzone'), {
+  dataType: 'POST',
   onSave: function (result) {
     /* Do something after upload, using result */
   },
@@ -20,12 +21,14 @@ var uploader = dndUpload($('#dropzone'), {
 
 #### Dot-notation
 ``` javascript
-uploader.onEnter(function () {
-  /* Do something when you enter the element */
-});
-uploader.onLeave(function () {
-  /* Do something when you leave the element; also occurs on drop */
-});
+uploader
+  .setFormField('client[avatar]'),
+  .onEnter(function () {
+    /* Do something when you enter the element */
+  })
+  .onLeave(function () {
+    /* Do something when you leave the element; also occurs on drop */
+  });
 ```
 
 #### Using HTML attributes (html/erb)
