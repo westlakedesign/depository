@@ -189,18 +189,9 @@
             document.addEventListener('drop', util.stop);
         };
 
-        // Will handle file uploads from an input instead
-        func.handleFileInput = function (e) {
-
-            func.processFiles(e.dataTransfer.files);
-            func.startUpload();
-        };
-
         // Take dropped file and add them to the queue, start upload if not uploading 
         func.handleFileDrop = function (e) {
-
             func.processFiles(e.dataTransfer.files);
-            func.startUpload();
         };
 
         // Send either one or multiple files to addToQueue
@@ -226,6 +217,8 @@
             file.id = internalId;
             spec.onEnqueue(file);
             queue.push(file);
+
+            func.startUpload();
         };
 
         // Toggle the upload flag and start the first upload
