@@ -30,3 +30,36 @@ uploader.onLeave = function () {
 ``` erb
 <div id="dropzone" data-dnd-url="<%= update_api_client_url(@client, :json) %>"></div>
 ```
+
+### Settings
+#### Options
+* **url** - *(String)* The url the uploader will push to
+* **method** - *(String)* The http method to use (GET, POST, PUT, PATCH, etc)
+* **fieldName** - *(String)* The form field name to send the upload with (i.e. 'image' or 'client[avatar]')
+* **multi** - *(Boolean)* Whether or not the uploader should support multi-drop uploading
+* **accept** - *(String Array)* Array of accepted file types (i.e. 'image/jpeg') to allow to be dropped
+* **dataType** - *(String)* Supports "text" or "json" response types, use text for html as well
+* **csrfParam** - *(String)* The cross site request forgery parameter used by ruby on rails
+* **csrfToken** - *(String)* The cross site request forgery token used by ruby on rails
+
+#### DOM Event Listener Functions
+* **onBodyEnter** - Triggers when you drag onto the page
+* **onBodyLeave** - Triggers when you drag off the page, also triggers on drop
+* **onEnter** - Triggers when you drag over the dropzone element
+* **onLeave** - Triggers when you drag away from the dropzone element, also triggers on drop
+
+#### Uploader Event Functions
+##### onEnqueue(*file*)
+Triggers each time a file is queued
+##### onStart(*queue*) 
+Triggers when the uploading process starts (after queing of dropped files)
+##### onProgress(*event*, *file*)
+Triggers when a progress event is emitted from the XHR event
+##### onAbort(*event*, *file*)
+Triggers if a file's XHR event is aborted by the user
+##### onSuccess(*response*, *httpReponseCode*, *file*)
+Triggers on each file's successful upload (4xx response code)
+##### onError(*response*, *httpReponseCode*, *file*)
+Triggers if upload fails to start or if upload receives a failing response code (non 4xx)
+##### afterUpload()
+Triggers after entire queue has been processed
