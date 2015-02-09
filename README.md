@@ -5,7 +5,7 @@ Universal HTML5 drag and drop "dropzone" creating plugin written in vanilla java
 Depository can be used three different ways which can be mixed and matched
 #### Settings object in constructor
 ``` javascript
-var uploader = dndUpload($('#dropzone'), {
+var uploader = depository($('#dropzone'), {
   dataType: 'POST',
   onSave: function (result) {
     /* Do something after upload, using result */
